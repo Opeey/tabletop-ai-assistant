@@ -1,2 +1,2 @@
-# tabletop-ai-assistant
+# Tabletop AI Assistant
 A Node.js application to utilize OpenAIs Assistants API to answer questions and retrieve information from provided tabletop RPG sources.

@@ -1,0 +1,26 @@
+{
+  "name": "tabletop-ai-assistant",
+  "version": "0.1.0",
+  "description": "A Node.js application to utilize OpenAIs Assistants API to answer questions and retrieve information from provided tabletop RPG sources.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Opeey/tabletop-ai-assistant.git"
+  },
+  "keywords": [
+    "ai",
+    "openai",
+    "chatgpt",
+    "tabletop",
+    "assistant"
+  ],
+  "author": "Patrick Henrici <patrick@opeey.de>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Opeey/tabletop-ai-assistant/issues"
+  },
+  "homepage": "https://github.com/Opeey/tabletop-ai-assistant#readme"
+}
