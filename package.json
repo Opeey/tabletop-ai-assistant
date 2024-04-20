@@ -2,8 +2,11 @@
   "name": "tabletop-ai-assistant",
   "version": "0.1.0",
   "description": "A Node.js application to utilize OpenAIs Assistants API to answer questions and retrieve information from provided tabletop RPG sources.",
-  "main": "index.js",
+  "main": "./dist/index.js",
   "scripts": {
+    "build": "tsc",
+    "start": "node .",
+    "index": "yarn run build && yarn node ./dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,5 +25,23 @@
   "bugs": {
     "url": "https://github.com/Opeey/tabletop-ai-assistant/issues"
   },
-  "homepage": "https://github.com/Opeey/tabletop-ai-assistant#readme"
+  "homepage": "https://github.com/Opeey/tabletop-ai-assistant#readme",
+  "devDependencies": {
+    "@eslint/js": "^9.1.1",
+    "@types/dotenv": "^8.2.0",
+    "eslint": "^9.1.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
+    "eslint-plugin-promise": "^6.0.0",
+    "ts-node": "^10.9.2",
+    "typescript-eslint": "^7.7.0"
+  },
+  "dependencies": {
+    "@types/node": "^20.12.7",
+    "dotenv": "^16.4.5",
+    "dotenv-defaults": "^5.0.2",
+    "openai": "^4.38.2",
+    "typescript": "^5.4.5"
+  }
 }

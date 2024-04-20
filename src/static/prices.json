@@ -1,0 +1,28 @@
+{
+  "models": {
+    "gpt-3.5-turbo-0125": {
+      "input": 0.5,
+      "output": 1.5
+    },
+    "gpt-3.5-turbo-instruct": {
+      "input": 1.5,
+      "output": 2
+    },
+    "gpt-4": {
+      "input": 30,
+      "output": 60
+    },
+    "gpt-4-32k": {
+      "input": 30,
+      "output": 60
+    },
+    "gpt-4-turbo-2024-04-09": {
+      "input": 10,
+      "output": 30
+    }
+  },
+  "assistants": {
+    "free_gb": 1,
+    "price_by_gb": 0.1
+  }
+}
