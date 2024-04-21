@@ -3,23 +3,33 @@ import {Assistant} from "openai/resources/beta";
 
 
 export class OpenAiService {
-    private assistantName = 'Tabletop AI Assistant'
-    private instructions = 'You will answer questions about dungeons and dragons, based on the documents you ' +
-        'have been provided. You will strictly answer based on the documents provided and not on your own knowledge. ' +
-        'If the answer of the question is not in the documents provided, you will simply say, that you do not know, ' +
-        'because your knowledge is limited to the provided data. Always print the answer to a question word for word ' +
-        'from the document.'
     private openAi: OpenAI
     private readonly model: string
+    private readonly tableTopSystem: string
     private assistant?: Assistant
 
-    constructor(apiKey: string, model: string) {
+    constructor(apiKey: string, model: string, tableTopSystem: string) {
         this.model = model
         this.openAi = new OpenAI({
             apiKey: apiKey
         })
+        this.tableTopSystem = tableTopSystem
+    }
 
-        this.getOrCreateAssistant().then(assistant => this.assistant = assistant)
+    async initialize(): Promise<void> {
+        this.assistant = await this.getOrCreateAssistant()
+    }
+
+    private getAssistantName(): string {
+        return 'Tabletop AI Assistant - ' + this.tableTopSystem
+    }
+
+    private getInstructions(): string {
+        return 'You will answer questions about ' + this.tableTopSystem + ', based on the documents you have been provided. ' +
+            'You will strictly answer based on the documents provided and not on your own knowledge. If the answer ' +
+            'of the question is not in the documents provided, you will simply say, that you do not know, because ' +
+            'your knowledge is limited to the provided data. Always print the answer to a question word for word ' +
+            'from the document.'
     }
 
     private async getOrCreateAssistant(): Promise<Assistant> {
@@ -34,12 +44,12 @@ export class OpenAiService {
     }
 
     private async createAssistant(): Promise<Assistant> {
-        console.info('Creating new assistant with name ' + this.assistantName + ' and model ' + this.model)
-        console.info('Using instructions: ' + this.instructions)
+        console.info('Creating new assistant with name ' + this.getAssistantName() + ' and model ' + this.model)
+        console.info('Using instructions: ' + this.getInstructions())
         return this.openAi.beta.assistants.create({
             model: this.model,
-            instructions: this.instructions,
-            name: this.assistantName,
+            instructions: this.getInstructions(),
+            name: this.getAssistantName(),
             temperature: 0.2,
             tools: [{
                 "type": "file_search"
@@ -51,8 +61,8 @@ export class OpenAiService {
         console.info('Updating assistant with id ' + assistant.id)
         return this.openAi.beta.assistants.update(assistant.id, {
             model: this.model,
-            instructions: this.instructions,
-            name: this.assistantName,
+            instructions: this.getInstructions(),
+            name: this.getAssistantName(),
             temperature: 0.2,
             tools: [{
                 "type": "file_search"
@@ -61,9 +71,9 @@ export class OpenAiService {
     }
 
     private async getAssistant(): Promise<Assistant | null> {
-        console.info('Fetching assistants to find existing assistant with name ' + this.assistantName)
+        console.info('Fetching assistants to find existing assistant with name ' + this.getAssistantName())
         for await (const assistant of this.openAi.beta.assistants.list({limit: 20})) {
-            if (assistant.name === this.assistantName) {
+            if (assistant.name === this.getAssistantName()) {
                 return assistant;
             }
         }

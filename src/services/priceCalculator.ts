@@ -1,7 +1,7 @@
-class PriceCalculator {
+export class PriceCalculator {
     private MODEL_PRICES: ModelPrice[] = [
         {
-            modelName: "gpt-3.5-turbo-0125",
+            modelName: "gpt-3.5-turbo",
             tokenCount: 1000000,
             inputPrice: 0.5,
             outputPrice: 1.5
@@ -50,6 +50,11 @@ class PriceCalculator {
             inputCost: (inputTokens / this.priceOfModel.tokenCount) * this.priceOfModel.inputPrice,
             outputCost: (outputTokens / this.priceOfModel.tokenCount) * this.priceOfModel.outputPrice,
         }
+    }
+
+    public getCostOfFileSizes(sumOfFileSizes: number): number {
+        const cost = (sumOfFileSizes - (this.ASSISTANT_PRICES.freeSpaceInGb * 1073741824)) * this.ASSISTANT_PRICES.priceByGb;
+        return cost > 0 ? cost : 0
     }
 }
 
