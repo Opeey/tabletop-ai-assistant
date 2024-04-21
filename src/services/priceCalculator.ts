@@ -38,10 +38,11 @@ class PriceCalculator {
         this.model = model
         this.maxCompletionTokens = maxCompletionTokens
 
-        this.priceOfModel = this.MODEL_PRICES.find(price => price.modelName === model)
-        if (this.priceOfModel === undefined) {
+        const priceOfModel: ModelPrice | undefined = this.MODEL_PRICES.find(price => price.modelName === model)
+        if (priceOfModel === undefined) {
             throw new NoSuchModelError(model)
         }
+        this.priceOfModel = priceOfModel
     }
 
     public calculateCostForMessage(inputTokens: number, outputTokens: number): MessageCost {
