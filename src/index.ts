@@ -1,3 +1,5 @@
+import {OpenAiService} from "./services/openAiService";
+
 require('dotenv').config()
 
 const openAiApiKey: string = process.env.OPENAI_API_KEY || ''
@@ -10,4 +12,4 @@ if (openAiApiKey === '') {
 }
 
 console.info('Using OpenAI model ' + openAiModel)
-
+const aiService = new OpenAiService(openAiApiKey, openAiModel)
